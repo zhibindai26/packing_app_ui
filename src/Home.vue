@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 class="title" style="color: purple">Packing App: Trip Details</h1>
     <div class="section">
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
@@ -205,7 +206,7 @@ export default {
       };
 
       const csvData = objToCSV(dataObject);
-      console.log(csvData);
+      return csvData;
     }
   }
 };
