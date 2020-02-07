@@ -161,7 +161,13 @@ export default {
       duration: "",
       laundry: "",
       swim: "",
-      niceClothes: ""
+      niceClothes: "",
+      countryCode: "",
+      stateCode: "",
+      city: "",
+      avgTemp: "",
+      avgHigh: "",
+      avgLow: ""
     };
   },
   methods: {
@@ -176,6 +182,12 @@ export default {
       })
         .then(response => response.json())
         .then(data => {
+          this.countryCode = data.country_code;
+          this.stateCode = data.state_code;
+          this.city = data.city;
+          this.avgTemp = data.avg_temp;
+          this.avgHigh = data.avg_high;
+          this.avgLow = data.avg_low;
           this.jsonToCSV(data.body);
         });
     },
