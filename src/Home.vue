@@ -57,7 +57,7 @@
 
             <div class="field">
               <div class="control">
-                <label class="label">Interational?</label>
+                <label class="label">International?</label>
                 <div class="control">
                   <label class="radio">
                     <input type="radio" value="Yes" v-model="international" />
@@ -152,8 +152,7 @@ export default {
   name: "Home",
   data() {
     return {
-      apiUrl:
-        "https://2su88231ma.execute-api.us-east-2.amazonaws.com/prod/pack",
+      apiUrl: "https://2su88231ma.execute-api.us-east-2.amazonaws.com/prod/pack",
       apiKey: "",
       traveler: "",
       destination: "",
@@ -172,7 +171,8 @@ export default {
   },
   methods: {
     getPackingData: function() {
-      const url = `${this.apiUrl}?destination=${this.destination}&laundry=${this.laundry}&duration=${this.duration}&international=${this.international}&nice_clothes=${this.niceClothes}&swimming=${this.swim}&traveler=${this.traveler}`;
+      const url = `${this.apiUrl}?destination=${this.destination}&laundry=${this.laundry}&duration=${this.duration}
+      &international=${this.international}&nice_clothes=${this.niceClothes}&swimming=${this.swim}&traveler=${this.traveler}`;
 
       fetch(url, {
         method: "GET",
@@ -193,11 +193,10 @@ export default {
     },
 
     jsonToCSV: function(apiJson) {
-
       const dataObject = apiJson.map(row => ({
         item: row.item,
         category: row.category,
-        count: row.count, 
+        count: row.count,
         checkbox: row.checkbox
       }));
 
@@ -218,7 +217,8 @@ export default {
       };
 
       const csvData = objToCSV(dataObject);
-      return csvData;
+      this.$router.push({ name: 'packingList', params: { data: csvData }});
+
     }
   }
 };

@@ -9,8 +9,8 @@ Vue.config.productionTip = false
 Vue.use(Router);
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/list', component: PackingList }
+  { path: '/', name: "home", component: Home },
+  { path: '/list', name: "packingList", component: PackingList, props: true }
 ]
 
 const router = new Router({

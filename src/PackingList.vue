@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <h1>Packing List</h1>
+    <h1 class="title">Packing List</h1>
+    <p>{{ data }}</p>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'Packing List',
+    name: 'PackingList',
     props: {
         data: Object
     }
