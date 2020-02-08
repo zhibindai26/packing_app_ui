@@ -188,38 +188,45 @@ export default {
           this.avgTemp = data.avg_temp;
           this.avgHigh = data.avg_high;
           this.avgLow = data.avg_low;
-          this.jsonToCSV(data.body);
+          this.$router.push({ name: 'packingList', 
+          params: { 
+            data: data.body, 
+            traveler: this.traveler, 
+            destination: this.city + " " + this.stateCode + " " + this.countryCode,
+            duration: this.duration,
+            avgTemp: this.avgTemp,
+            avgHigh: this.avgHigh,
+            avgLow: this.avgLow
+          }});
         });
     },
 
-    jsonToCSV: function(apiJson) {
-      const dataObject = apiJson.map(row => ({
-        item: row.item,
-        category: row.category,
-        count: row.count,
-        checkbox: row.checkbox
-      }));
+    // jsonToCSV: function(apiJson) {
+    //   const dataObject = apiJson.map(row => ({
+    //     item: row.item,
+    //     category: row.category,
+    //     count: row.count,
+    //     checkbox: row.checkbox
+    //   }));
 
-      const objToCSV = function(data) {
-        const csvRows = [];
-        const headers = Object.keys(data[0]);
-        csvRows.push(headers.join(","));
+    //   const objToCSV = function(data) {
+    //     const csvRows = [];
+    //     const headers = Object.keys(data[0]);
+    //     csvRows.push(headers.join(","));
 
-        for (const row of data) {
-          const values = headers.map(header => {
-            const escaped = ("" + row[header]).replace(/"/g, '\\"');
-            return `"${escaped}"`;
-          });
-          csvRows.push(values.join(","));
-        }
-        const output = csvRows.join("\n");
-        return output;
-      };
+    //     for (const row of data) {
+    //       const values = headers.map(header => {
+    //         const escaped = ("" + row[header]).replace(/"/g, '\\"');
+    //         return `"${escaped}"`;
+    //       });
+    //       csvRows.push(values.join(","));
+    //     }
+    //     const output = csvRows.join("\n");
+    //     return output;
+    //   };
 
-      const csvData = objToCSV(dataObject);
-      this.$router.push({ name: 'packingList', params: { data: csvData }});
-
-    }
+    //   const csvData = objToCSV(dataObject);
+    // }
   }
 };
 </script>
