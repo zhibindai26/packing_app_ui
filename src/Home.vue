@@ -23,9 +23,12 @@
                 <input
                   class="input"
                   type="text"
-                  placeholder="This format for domestic is: City,State Abbreviation. Just city name for international"
+                  placeholder="Domestic format: City,State Abbreviation. International: City,2-Letter Abbreviation"
                   v-model="destination"
                 />
+                <br>
+                <a href="https://www.50states.com/abbreviations.htm" target="_blank">US State Abbreviations </a> <br>
+                <a href="https://www.iban.com/country-codes" target="_blank">Int'l Country Abbreviations</a>
               </div>
             </div>
 
@@ -152,7 +155,8 @@ export default {
   name: "Home",
   data() {
     return {
-      apiUrl: "https://2su88231ma.execute-api.us-east-2.amazonaws.com/prod/pack",
+      apiUrl:
+        "https://2su88231ma.execute-api.us-east-2.amazonaws.com/prod/pack",
       apiKey: "",
       traveler: "",
       destination: "",
@@ -188,45 +192,64 @@ export default {
           this.avgTemp = data.avg_temp;
           this.avgHigh = data.avg_high;
           this.avgLow = data.avg_low;
-          this.$router.push({ name: 'packingList', 
-          params: { 
-            data: data.body, 
-            traveler: this.traveler, 
-            destination: this.city + " " + this.stateCode + " " + this.countryCode,
-            duration: this.duration,
-            avgTemp: this.avgTemp,
-            avgHigh: this.avgHigh,
-            avgLow: this.avgLow
-          }});
+          this.jsonToCSV(data.body);
+          this.$router.push({
+            name: "packingList",
+            params: {
+              data: data.body,
+              traveler: this.traveler,
+              destination:
+                this.city + " " + this.stateCode + " " + this.countryCode,
+              duration: this.duration,
+              avgTemp: this.avgTemp,
+              avgHigh: this.avgHigh,
+              avgLow: this.avgLow
+            }
+          });
         });
     },
 
-    // jsonToCSV: function(apiJson) {
-    //   const dataObject = apiJson.map(row => ({
-    //     item: row.item,
-    //     category: row.category,
-    //     count: row.count,
-    //     checkbox: row.checkbox
-    //   }));
+    jsonToCSV: function(apiJson) {
+      let today = new Date().toISOString().slice(0, 10);
+      let csvName = `${this.traveler}_${this.destination}_${today}_packing_list.csv`;
+      const dataObject = apiJson.map(row => ({
+        item: row.item,
+        category: row.category,
+        count: row.count,
+        checkbox: row.checkbox
+      }));
 
-    //   const objToCSV = function(data) {
-    //     const csvRows = [];
-    //     const headers = Object.keys(data[0]);
-    //     csvRows.push(headers.join(","));
+      const objToCSV = function(data) {
+        const csvRows = [];
+        const headers = Object.keys(data[0]);
+        csvRows.push(headers.join(","));
 
-    //     for (const row of data) {
-    //       const values = headers.map(header => {
-    //         const escaped = ("" + row[header]).replace(/"/g, '\\"');
-    //         return `"${escaped}"`;
-    //       });
-    //       csvRows.push(values.join(","));
-    //     }
-    //     const output = csvRows.join("\n");
-    //     return output;
-    //   };
+        for (const row of data) {
+          const values = headers.map(header => {
+            const escaped = ("" + row[header]).replace(/"/g, '\\"');
+            return `"${escaped}"`;
+          });
+          csvRows.push(values.join(","));
+        }
+        const output = csvRows.join("\n");
+        return output;
+      };
 
-    //   const csvData = objToCSV(dataObject);
-    // }
+      const download = function(data, filename) {
+        const blob = new Blob([data], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.setAttribute("hidden", "");
+        a.setAttribute("href", url);
+        a.setAttribute("download", filename);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+
+      const csvData = objToCSV(dataObject);
+      download(csvData, csvName);
+    }
   }
 };
 </script>
