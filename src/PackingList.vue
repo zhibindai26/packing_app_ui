@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1 class="title" style="color: purple">Packing List for {{ traveler}} to {{ destination }}</h1>
+    <h1 class="title" style="color: purple">Packing List for {{ traveler }} to {{ destination }}</h1>
     <div class="section">
       <p class="subtitle">Duration: {{ duration }} Days
       <br>Average Temp: {{ avgTemp }}ºF

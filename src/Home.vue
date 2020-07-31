@@ -60,22 +60,6 @@
 
             <div class="field">
               <div class="control">
-                <label class="label">International?</label>
-                <div class="control">
-                  <label class="radio">
-                    <input type="radio" value="Yes" v-model="international" />
-                    Yes
-                  </label>
-                  <label class="radio">
-                    <input type="radio" value="No" v-model="international" />
-                    No
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="field">
-              <div class="control">
                 <label class="label">Traveler</label>
                 <div class="control">
                   <label class="radio">
@@ -85,6 +69,22 @@
                   <label class="radio">
                     <input type="radio" value="KS" v-model="traveler" />
                     KS
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="field">
+              <div class="control">
+                <label class="label">International?</label>
+                <div class="control">
+                  <label class="radio">
+                    <input type="radio" value="Yes" v-model="international" />
+                    Yes
+                  </label>
+                  <label class="radio">
+                    <input type="radio" value="No" v-model="international" />
+                    No
                   </label>
                 </div>
               </div>
@@ -155,8 +155,7 @@ export default {
   name: "Home",
   data() {
     return {
-      apiUrl:
-        "https://2su88231ma.execute-api.us-east-2.amazonaws.com/prod/pack",
+      apiUrl: "https://2su88231ma.execute-api.us-east-2.amazonaws.com/prod/pack",
       apiKey: "",
       traveler: "",
       destination: "",
