@@ -136,7 +136,7 @@
                     <input type="radio" value="Yes" v-model="downloadList" /> Yes
                   </label>
                   <label class="radio">
-                    <input type="radio" value="No" v-model="downloadList" / >No
+                    <input type="radio" value="No" v-model="downloadList" /> No
                   </label>
                 </div>
               </div>
