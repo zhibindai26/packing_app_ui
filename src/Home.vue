@@ -63,12 +63,10 @@
                 <label class="label">Traveler</label>
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" value="ZD" v-model="traveler" />
-                    ZD
+                    <input type="radio" value="ZD" v-model="traveler" />ZD
                   </label>
                   <label class="radio">
-                    <input type="radio" value="KS" v-model="traveler" />
-                    KS
+                    <input type="radio" value="KS" v-model="traveler" />KS
                   </label>
                 </div>
               </div>
@@ -79,12 +77,10 @@
                 <label class="label">International?</label>
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" value="Yes" v-model="international" />
-                    Yes
+                    <input type="radio" value="Yes" v-model="international" />Yes
                   </label>
                   <label class="radio">
-                    <input type="radio" value="No" v-model="international" />
-                    No
+                    <input type="radio" value="No" v-model="international" />No
                   </label>
                 </div>
               </div>
@@ -95,12 +91,10 @@
                 <label class="label">Laundry?</label>
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" value="Yes" v-model="laundry" />
-                    Yes
+                    <input type="radio" value="Yes" v-model="laundry" />Yes
                   </label>
                   <label class="radio">
-                    <input type="radio" value="No" v-model="laundry" />
-                    No
+                    <input type="radio" value="No" v-model="laundry" />No
                   </label>
                 </div>
               </div>
@@ -111,12 +105,10 @@
                 <label class="label">Swimming?</label>
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" value="Yes" v-model="swim" />
-                    Yes
+                    <input type="radio" value="Yes" v-model="swim" />Yes
                   </label>
                   <label class="radio">
-                    <input type="radio" value="No" v-model="swim" />
-                    No
+                    <input type="radio" value="No" v-model="swim" />No
                   </label>
                 </div>
               </div>
@@ -127,12 +119,24 @@
                 <label class="label">Nice Clothes?</label>
                 <div class="control">
                   <label class="radio">
-                    <input type="radio" value="Yes" v-model="niceClothes" />
-                    Yes
+                    <input type="radio" value="Yes" v-model="niceClothes" />Yes
                   </label>
                   <label class="radio">
-                    <input type="radio" value="No" v-model="niceClothes" />
-                    No
+                    <input type="radio" value="No" v-model="niceClothes" />No
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="field">
+              <div class="control">
+                <label class="label">Download Packing List?</label>
+                <div class="control">
+                  <label class="radio">
+                    <input type="radio" value="Yes" v-model="downloadList" />Yes
+                  </label>
+                  <label class="radio">
+                    <input type="radio" value="No" v-model="downloadList" />No
                   </label>
                 </div>
               </div>
@@ -164,6 +168,7 @@ export default {
       laundry: "",
       swim: "",
       niceClothes: "",
+      downloadList: "",
       countryCode: "",
       stateCode: "",
       city: "",
@@ -247,7 +252,11 @@ export default {
       };
 
       const csvData = objToCSV(dataObject);
-      download(csvData, csvName);
+
+      if (this.downloadList === "Yes") {
+        download(csvData, csvName);
+      }
+      
     }
   }
 };
